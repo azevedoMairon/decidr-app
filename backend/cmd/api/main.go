@@ -1,15 +1,27 @@
 package main
 
 import (
+	"context"
+	"log"
+
+	"github.com/azevedoMairon/decidr-app/infra/mongo"
+	"github.com/azevedoMairon/decidr-app/infra/mongo/migrations"
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
-	app := gin.Default()
+	mongoClient, err := mongo.Connect("mongodb://localhost:27017")
+	if err != nil {
+		log.Fatal(err)
+	}
 
-	app.GET("/", func(c *gin.Context) {
-		c.String(200, "OK!")
-	})
+	db := mongoClient.Database("decidr_db")
 
-	app.Run(":8080")
+	if err := migrations.SeedParticipants(context.Background(), db); err != nil {
+		log.Fatal(err)
+	}
+
+	router := gin.Default()
+
+	router.Run(":8080")
 }
