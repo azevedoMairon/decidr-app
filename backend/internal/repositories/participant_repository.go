@@ -23,13 +23,13 @@ func NewRepository(db *mongo.Database) ParticipantRepository {
 }
 
 func (r *participantRepository) FindAll(ctx context.Context, isNominated *bool) ([]entities.Participant, error) {
-	cursor, err := r.collection.Find(ctx, bson.M{})
 	filter := bson.M{}
 
 	if isNominated != nil {
 		filter["isNominated"] = *isNominated
 	}
 
+	cursor, err := r.collection.Find(ctx, filter)
 	if err != nil {
 		return nil, err
 	}
