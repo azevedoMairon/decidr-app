@@ -47,7 +47,9 @@ func Test_GetParticipants_ShouldSendNominatedFilter(t *testing.T) {
 	}
 
 	mockRepo := new(mockRepo)
-	mockRepo.On("FindAll", ctx, &nominated).Return(expected, nil)
+	mockRepo.On("FindAll", ctx, mock.MatchedBy(func(b *bool) bool {
+		return b != nil && *b == true
+	})).Return(expected, nil)
 
 	svc := NewService(mockRepo)
 	result, err := svc.GetParticipants(ctx, &nominated)
