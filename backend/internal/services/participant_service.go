@@ -8,7 +8,7 @@ import (
 )
 
 type ParticipantService interface {
-	GetParticipants(ctx context.Context) ([]entities.Participant, error)
+	GetParticipants(ctx context.Context, isNominated *bool) ([]entities.Participant, error)
 }
 
 type participantService struct {
@@ -19,6 +19,6 @@ func NewService(repo repositories.ParticipantRepository) ParticipantService {
 	return &participantService{repo: repo}
 }
 
-func (s *participantService) GetParticipants(ctx context.Context) ([]entities.Participant, error) {
-	return s.repo.FindAll(ctx)
+func (s *participantService) GetParticipants(ctx context.Context, isNominated *bool) ([]entities.Participant, error) {
+	return s.repo.FindAll(ctx, isNominated)
 }

@@ -9,7 +9,7 @@ import (
 )
 
 type ParticipantRepository interface {
-	FindAll(ctx context.Context) ([]entities.Participant, error)
+	FindAll(ctx context.Context, isNominated *bool) ([]entities.Participant, error)
 }
 
 type participantRepository struct {
@@ -22,8 +22,14 @@ func NewRepository(db *mongo.Database) ParticipantRepository {
 	}
 }
 
-func (r *participantRepository) FindAll(ctx context.Context) ([]entities.Participant, error) {
+func (r *participantRepository) FindAll(ctx context.Context, isNominated *bool) ([]entities.Participant, error) {
 	cursor, err := r.collection.Find(ctx, bson.M{})
+	filter := bson.M{}
+
+	if isNominated != nil {
+		filter["isNominated"] = *isNominated
+	}
+
 	if err != nil {
 		return nil, err
 	}

@@ -18,7 +18,13 @@ func NewHandler(s services.ParticipantService) *ParticipantHandler {
 func (h *ParticipantHandler) GetParticipants(c *gin.Context) {
 	ctx := c.Request.Context()
 
-	participants, err := h.service.GetParticipants(ctx)
+	var isNominated *bool = nil
+	if q := c.Query("isNominated"); q != "" {
+		val := q == "true"
+		isNominated = &val
+	}
+
+	participants, err := h.service.GetParticipants(ctx, isNominated)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
