@@ -6,7 +6,10 @@ import (
 
 	"github.com/azevedoMairon/decidr-app/infra/mongo"
 	"github.com/azevedoMairon/decidr-app/infra/mongo/migrations"
-	"github.com/azevedoMairon/decidr-app/internal/participants"
+	"github.com/azevedoMairon/decidr-app/internal/handlers"
+	"github.com/azevedoMairon/decidr-app/internal/repositories"
+	"github.com/azevedoMairon/decidr-app/internal/services"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -22,9 +25,9 @@ func main() {
 		log.Fatal(err)
 	}
 
-	repo := participants.NewRepository(db)
-	service := participants.NewService(repo)
-	handler := participants.NewHandler(service)
+	repo := repositories.NewRepository(db)
+	service := services.NewService(repo)
+	handler := handlers.NewHandler(service)
 
 	router := gin.Default()
 

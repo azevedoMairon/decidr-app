@@ -1,28 +1,28 @@
-package participants
+package repositories
 
 import (
 	"context"
 
-	"github.com/azevedoMairon/decidr-app/core/entities"
+	"github.com/azevedoMairon/decidr-app/internal/entities"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-type Repository interface {
+type ParticipantRepository interface {
 	FindAll(ctx context.Context) ([]entities.Participant, error)
 }
 
-type repository struct {
+type participantRepository struct {
 	collection *mongo.Collection
 }
 
-func NewRepository(db *mongo.Database) Repository {
-	return &repository{
+func NewRepository(db *mongo.Database) ParticipantRepository {
+	return &participantRepository{
 		collection: db.Collection("participants"),
 	}
 }
 
-func (r *repository) FindAll(ctx context.Context) ([]entities.Participant, error) {
+func (r *participantRepository) FindAll(ctx context.Context) ([]entities.Participant, error) {
 	cursor, err := r.collection.Find(ctx, bson.M{})
 	if err != nil {
 		return nil, err

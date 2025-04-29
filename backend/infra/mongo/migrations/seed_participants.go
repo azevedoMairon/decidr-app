@@ -3,7 +3,7 @@ package migrations
 import (
 	"context"
 
-	"github.com/azevedoMairon/decidr-app/core/entities"
+	"github.com/azevedoMairon/decidr-app/internal/entities"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 )
