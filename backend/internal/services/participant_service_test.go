@@ -27,7 +27,7 @@ func Test_GetParticipants_ShouldReturnDbResponse(t *testing.T) {
 	}
 
 	mockRepo := new(mockRepo)
-	mockRepo.On("FindAll", ctx).Return(expected, nil)
+	mockRepo.On("FindAll", ctx, mock.Anything).Return(expected, nil)
 
 	svc := NewService(mockRepo)
 
