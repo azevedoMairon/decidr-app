@@ -38,7 +38,7 @@ func Test_GetParticipants_ShouldReturnDbResponse(t *testing.T) {
 	mockRepo.AssertExpectations(t)
 }
 
-func Test_GetParticipants_ShouldSendNominatedFilter(t *testing.T) {
+func Test_GetParticipants_ShouldSendNominatedFilterValue(t *testing.T) {
 	ctx := context.Background()
 	nominated := true
 
