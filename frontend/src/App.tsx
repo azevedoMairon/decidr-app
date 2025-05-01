@@ -1,19 +1,21 @@
-function App() {
+import { useNavigate } from "react-router-dom";
+import AppLogo from "./components/AppLogo";
+import Button from "./components/Button";
+
+export default function App() {
+  const navigate = useNavigate();
 
   return (
     <>
-      <h1 className="font-display text-6xl font-bold text-white">
-        DECIDR.
-      </h1>
+      <div className="flex flex-col items-center justify-center w-[100vw] h-[100vh]">
+        <AppLogo />
 
-      <p className="text-dusk mt-4 font-sans">
-        Escolha seu favorito e veja os resultados em tempo real.
-      </p>
-      <button className="mt-6 px-4 py-2 bg-highlight text-midnight font-bold rounded">
-        Votar Agora
-      </button>
+        <p className="text-dusk-90 mt-4 font-mono">
+          seu app de decisões em tempo real.
+        </p>
+
+        <Button text="Votar Agora" onClick={() => navigate("/voting-page")} />
+      </div>
     </>
-  )
+  );
 }
-
-export default App
