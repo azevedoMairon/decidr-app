@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 interface Props {
     className?: string;
 }
-  
 
 export default function AppLogo({ className }: Props) {
   return (

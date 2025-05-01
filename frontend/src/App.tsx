@@ -14,7 +14,9 @@ export default function App() {
           seu app de decisões em tempo real.
         </p>
 
-        <Button text="Votar Agora" onClick={() => navigate("/voting-page")} />
+        <div className="w-[25%] flex justify-center">
+          <Button text="Votar Agora" onClick={() => navigate("/voting-page")} />
+        </div>
       </div>
     </>
   );

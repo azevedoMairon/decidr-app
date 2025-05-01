@@ -1,7 +1,7 @@
 export default function Bracket() {
   return (
     <>
-      <div className="z-0 absolute top-0 left-0 -translate-x-1/4 translate-y-1/8 opacity-5">
+      <div className="z-0 absolute top-0 left-0 -translate-x-1/4 translate-y-1/8 opacity-5 pointer-events-none">
         <svg
           width="1000"
           height="1000"
