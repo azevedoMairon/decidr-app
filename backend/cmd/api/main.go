@@ -9,6 +9,7 @@ import (
 	"github.com/azevedoMairon/decidr-app/internal/handlers"
 	"github.com/azevedoMairon/decidr-app/internal/repositories"
 	"github.com/azevedoMairon/decidr-app/internal/services"
+	"github.com/gin-contrib/cors"
 
 	"github.com/gin-gonic/gin"
 )
@@ -34,6 +35,10 @@ func main() {
 	router.GET("/", func(c *gin.Context) {
 		c.String(200, "OK!")
 	})
+
+	router.Use(cors.New(cors.Config{
+		AllowAllOrigins: true,
+	}))
 
 	router.GET("/api/participants", handler.GetParticipants)
 
