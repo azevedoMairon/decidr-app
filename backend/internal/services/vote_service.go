@@ -3,9 +3,11 @@ package services
 import (
 	"context"
 	"errors"
+	"fmt"
 
 	"github.com/azevedoMairon/decidr-app/internal/entities"
 	"github.com/azevedoMairon/decidr-app/internal/repositories"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
@@ -29,7 +31,12 @@ func NewVoteService(
 }
 
 func (s *voteService) PostVote(ctx context.Context, req entities.VoteRequest) (*mongo.UpdateResult, error) {
-	exists, err := s.participantRepo.IsNominated(ctx, req.ParticipantId)
+	participantId, err := primitive.ObjectIDFromHex(req.ParticipantId)
+	if err != nil {
+		return nil, fmt.Errorf("failed to convert participantId: %w", err)
+	}
+
+	exists, err := s.participantRepo.IsNominated(ctx, participantId)
 	if err != nil {
 		return nil, err
 	}

@@ -6,12 +6,13 @@ import (
 
 	"github.com/azevedoMairon/decidr-app/internal/entities"
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
 type ParticipantRepository interface {
 	FindAll(ctx context.Context, isNominated *bool) ([]entities.Participant, error)
-	IsNominated(ctx context.Context, id string) (bool, error)
+	IsNominated(ctx context.Context, id primitive.ObjectID) (bool, error)
 }
 
 type participantRepository struct {
@@ -45,7 +46,7 @@ func (r *participantRepository) FindAll(ctx context.Context, isNominated *bool) 
 	return participants, nil
 }
 
-func (r *participantRepository) IsNominated(ctx context.Context, id string) (bool, error) {
+func (r *participantRepository) IsNominated(ctx context.Context, id primitive.ObjectID) (bool, error) {
 	filter := bson.M{"_id": id, "isNominated": true}
 
 	err := r.collection.FindOne(ctx, filter).Err()

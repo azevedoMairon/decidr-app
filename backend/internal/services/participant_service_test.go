@@ -7,6 +7,7 @@ import (
 	"github.com/azevedoMairon/decidr-app/internal/entities"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 type mockRepo struct {
@@ -18,7 +19,7 @@ func (m *mockRepo) FindAll(ctx context.Context, isNominated *bool) ([]entities.P
 	return args.Get(0).([]entities.Participant), args.Error(1)
 }
 
-func (m *mockRepo) IsNominated(ctx context.Context, id string) (bool, error) {
+func (m *mockRepo) IsNominated(ctx context.Context, id primitive.ObjectID) (bool, error) {
 	args := m.Called(ctx, id)
 	return args.Bool(0), args.Error(1)
 }
