@@ -18,6 +18,11 @@ func (m *mockRepo) FindAll(ctx context.Context, isNominated *bool) ([]entities.P
 	return args.Get(0).([]entities.Participant), args.Error(1)
 }
 
+func (m *mockRepo) IsNominated(ctx context.Context, id string) (bool, error) {
+	args := m.Called(ctx, id)
+	return args.Bool(0), args.Error(1)
+}
+
 func Test_GetParticipants_ShouldReturnDbResponse(t *testing.T) {
 	ctx := context.Background()
 
@@ -29,7 +34,7 @@ func Test_GetParticipants_ShouldReturnDbResponse(t *testing.T) {
 	mockRepo := new(mockRepo)
 	mockRepo.On("FindAll", ctx, mock.Anything).Return(expected, nil)
 
-	svc := NewService(mockRepo)
+	svc := NewParticipantService(mockRepo)
 
 	result, err := svc.GetParticipants(ctx, nil)
 
@@ -51,7 +56,7 @@ func Test_GetParticipants_ShouldSendNominatedFilterValue(t *testing.T) {
 		return b != nil && *b == true
 	})).Return(expected, nil)
 
-	svc := NewService(mockRepo)
+	svc := NewParticipantService(mockRepo)
 	result, err := svc.GetParticipants(ctx, &nominated)
 
 	assert.NoError(t, err)

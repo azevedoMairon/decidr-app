@@ -10,6 +10,29 @@ async function castVote(e: React.FormEvent<HTMLFormElement>) {
   const selected = new FormData(form).get("participant");
 
   console.log("Participante votado:", selected);
+
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_BACKEND_URL}/api/vote`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ participant: selected }),
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Erro ao registrar o voto.");
+    }
+
+    const result = await response.json();
+
+    console.log("Voto registrado com sucesso: ", result);
+  } catch (err) {
+    console.error(err);
+  }
 }
 
 export default function VotePage() {

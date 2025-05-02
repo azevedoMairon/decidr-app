@@ -11,7 +11,7 @@ type ParticipantHandler struct {
 	service services.ParticipantService
 }
 
-func NewHandler(s services.ParticipantService) *ParticipantHandler {
+func NewParticipantHandler(s services.ParticipantService) *ParticipantHandler {
 	return &ParticipantHandler{service: s}
 }
 

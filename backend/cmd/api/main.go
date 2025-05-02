@@ -26,9 +26,13 @@ func main() {
 		log.Fatal(err)
 	}
 
-	repo := repositories.NewRepository(db)
-	service := services.NewService(repo)
-	handler := handlers.NewHandler(service)
+	participantRepo := repositories.NewParticipantRepository(db)
+	participantService := services.NewParticipantService(participantRepo)
+	participantHandler := handlers.NewParticipantHandler(participantService)
+
+	voteRepo := repositories.NewVoteRepository(db)
+	voteService := services.NewVoteService(voteRepo, participantRepo)
+	voteHandler := handlers.NewVoteHandler(voteService)
 
 	router := gin.Default()
 
@@ -40,7 +44,9 @@ func main() {
 		AllowAllOrigins: true,
 	}))
 
-	router.GET("/api/participants", handler.GetParticipants)
+	router.GET("/api/participants", participantHandler.GetParticipants)
+
+	router.POST("/api/vote", voteHandler.PostVote)
 
 	router.Run(":8080")
 }

@@ -32,7 +32,7 @@ func setupMongoDockerTest(t *testing.T) {
 
 	mongoResource, err = mongoPool.RunWithOptions(&dockertest.RunOptions{
 		Repository: "mongo",
-		Tag:        "6.0", // ou outro que você quiser
+		Tag:        "6.0",
 		Env:        []string{},
 	}, func(config *docker.HostConfig) {
 		config.AutoRemove = true
@@ -42,7 +42,6 @@ func setupMongoDockerTest(t *testing.T) {
 		t.Fatalf("Could not start resource: %s", err)
 	}
 
-	// Define timeout para evitar testes travando para sempre
 	if err = mongoPool.Retry(func() error {
 		var err error
 		mongoURI := fmt.Sprintf("mongodb://localhost:%s", mongoResource.GetPort("27017/tcp"))
@@ -88,8 +87,8 @@ func TestIntegration_GetParticipants(t *testing.T) {
 	}
 	insertParticipants(t, participants)
 
-	repo := repositories.NewRepository(mongoDB)
-	svc := services.NewService(repo)
+	repo := repositories.NewParticipantRepository(mongoDB)
+	svc := services.NewParticipantService(repo)
 
 	t.Run("should return only nominated participants", func(t *testing.T) {
 		nominated := true

@@ -15,7 +15,7 @@ type participantService struct {
 	repo repositories.ParticipantRepository
 }
 
-func NewService(repo repositories.ParticipantRepository) ParticipantService {
+func NewParticipantService(repo repositories.ParticipantRepository) ParticipantService {
 	return &participantService{repo: repo}
 }
 

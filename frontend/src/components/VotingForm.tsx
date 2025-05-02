@@ -1,7 +1,6 @@
 import { FormEvent } from "react";
 import Participant from "../models/Participant";
 import Button from "./Button";
-import ParticipantBubble from "./ParticipantBubble";
 
 interface Props {
   onSubmit?: (e: FormEvent<HTMLFormElement>) => void;
