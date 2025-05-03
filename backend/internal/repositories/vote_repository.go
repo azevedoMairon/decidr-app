@@ -11,6 +11,7 @@ import (
 
 type VoteRepository interface {
 	IncrementVote(ctx context.Context, req entities.VoteRequest) (*mongo.UpdateResult, error)
+	FindAll(ctx context.Context) ([]entities.VoteResult, error)
 }
 
 type voteRepository struct {
@@ -32,4 +33,19 @@ func (r *voteRepository) IncrementVote(ctx context.Context, req entities.VoteReq
 	)
 
 	return result, err
+}
+
+func (r *voteRepository) FindAll(ctx context.Context) ([]entities.VoteResult, error) {
+	cursor, err := r.collection.Find(ctx, bson.M{})
+	if err != nil {
+		return nil, err
+	}
+	defer cursor.Close(ctx)
+
+	var votes []entities.VoteResult
+	if err := cursor.All(ctx, &votes); err != nil {
+		return nil, err
+	}
+
+	return votes, nil
 }

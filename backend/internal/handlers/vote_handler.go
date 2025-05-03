@@ -25,11 +25,23 @@ func (h *VoteHandler) PostVote(c *gin.Context) {
 		return
 	}
 
-	participants, err := h.service.PostVote(ctx, req)
+	result, err := h.service.PostVote(ctx, req)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
 
-	c.JSON(http.StatusOK, participants)
+	c.JSON(http.StatusOK, result)
+}
+
+func (h *VoteHandler) GetResults(c *gin.Context) {
+	ctx := c.Request.Context()
+
+	result, err := h.service.GetResults(ctx)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, result)
 }

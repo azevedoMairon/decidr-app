@@ -50,5 +50,7 @@ func main() {
 
 	router.POST("/api/vote", voteHandler.PostVote)
 
+	router.GET("/api/results", voteHandler.GetResults)
+
 	router.Run(":8080")
 }

@@ -16,3 +16,8 @@ func (m *MockVoteRepo) IncrementVote(ctx context.Context, req entities.VoteReque
 	args := m.Called(ctx, req)
 	return args.Get(0).(*mongo.UpdateResult), args.Error(1)
 }
+
+func (m *MockVoteRepo) FindAll(ctx context.Context) ([]entities.VoteResult, error) {
+	args := m.Called(ctx)
+	return args.Get(0).([]entities.VoteResult), args.Error(1)
+}
