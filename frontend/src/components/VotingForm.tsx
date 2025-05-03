@@ -1,15 +1,47 @@
-import { FormEvent } from "react";
-import Participant from "../models/Participant";
+import { useParticipants } from "../contexts/ParticipantContext";
+import toast from "react-hot-toast";
 import Button from "./Button";
 
-interface Props {
-  onSubmit?: (e: FormEvent<HTMLFormElement>) => void;
-  participants: Participant[];
+async function castVote(e: React.FormEvent<HTMLFormElement>) {
+  e.preventDefault();
+
+  const form = e.target as HTMLFormElement;
+  const formData = new FormData(form);
+  const selectedParticipantId = formData.get("participant");
+
+  if (!selectedParticipantId) {
+    toast.error("Selecione um participante antes de votar.");
+    return;
+  }
+
+  try {
+    const payload = { participant_id: selectedParticipantId };
+    const response = await fetch(
+      `${import.meta.env.VITE_BACKEND_URL}/api/vote`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      }
+    );
+
+    if (!response.ok) throw new Error("Erro ao registrar o voto.");
+    toast.success("Voto registrado com sucesso!");
+
+  } catch (error) {
+
+    toast.error("Falha ao enviar o voto.");
+    console.error("Falha ao enviar voto:", error);
+  }
 }
 
-export default function VotingForm({ participants, onSubmit }: Props) {
+export default function VotingForm() {
+  const { participants, loading } = useParticipants();
+
+  if (loading) return <></>;
+
   return (
-    <form className="flex flex-col items-center" onSubmit={onSubmit}>
+    <form className="flex flex-col items-center" onSubmit={castVote}>
       {participants
         .filter((p) => p.isNominated)
         .map((p) => (

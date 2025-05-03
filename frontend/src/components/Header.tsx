@@ -1,12 +1,12 @@
-import Participant from "../models/Participant";
+import { useParticipants } from "../contexts/ParticipantContext";
 import AppLogo from "./AppLogo";
 import ParticipantBubble from "./ParticipantBubble";
 
-interface Props {
-    participants: Participant[];
-}
+export default function Header() {
+  const { participants, loading } = useParticipants();
 
-export default function Header({ participants }: Props) {
+  if (loading) return <></>
+
   return (
     <header className="flex flex-col items-center py-8">
       <AppLogo className="pb-8" />
