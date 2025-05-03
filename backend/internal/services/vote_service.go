@@ -13,7 +13,7 @@ import (
 
 type VoteService interface {
 	PostVote(ctx context.Context, req entities.VoteRequest) (*mongo.UpdateResult, error)
-	GetResults(ctx context.Context) ([]entities.VoteResult, error)
+	GetResults(ctx context.Context, byHour *bool) ([]entities.VoteResult, error)
 }
 
 type voteService struct {
@@ -48,6 +48,6 @@ func (s *voteService) PostVote(ctx context.Context, req entities.VoteRequest) (*
 	return s.voteRepo.IncrementVote(ctx, req)
 }
 
-func (s *voteService) GetResults(ctx context.Context) ([]entities.VoteResult, error) {
-	return s.voteRepo.FindAll(ctx)
+func (s *voteService) GetResults(ctx context.Context, byHour *bool) ([]entities.VoteResult, error) {
+	return s.voteRepo.FindAll(ctx, byHour)
 }

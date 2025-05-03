@@ -37,7 +37,13 @@ func (h *VoteHandler) PostVote(c *gin.Context) {
 func (h *VoteHandler) GetResults(c *gin.Context) {
 	ctx := c.Request.Context()
 
-	result, err := h.service.GetResults(ctx)
+	var byHour *bool = nil
+	if q := c.Query("byHour"); q != "" {
+		val := q == "true"
+		byHour = &val
+	}
+
+	result, err := h.service.GetResults(ctx, byHour)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
