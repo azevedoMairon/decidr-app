@@ -57,7 +57,7 @@ func setupMongoDockerTest(t *testing.T) {
 	mongoDB = mongoClient.Database("decidr_test_db")
 }
 
-func teardownMongoDockerTest(t *testing.T) {
+func teardownMongoDockerTest() {
 	if mongoClient != nil {
 		_ = mongoClient.Disconnect(context.Background())
 	}
@@ -75,7 +75,7 @@ func insertParticipants(t *testing.T, participants []interface{}) {
 
 func TestIntegration_GetParticipants(t *testing.T) {
 	setupMongoDockerTest(t)
-	defer teardownMongoDockerTest(t)
+	defer teardownMongoDockerTest()
 
 	ctx := context.Background()
 
