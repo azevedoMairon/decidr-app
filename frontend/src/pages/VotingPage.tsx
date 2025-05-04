@@ -1,7 +1,11 @@
 import Header from "../components/Header";
-import VotingForm from "../components/VotingForm";
+import VoteResults from "../components/VoteResults";
+import VoteForm from "../components/VoteForm";
+import { useVote } from "../contexts/VoteContext";
 
 export default function VotePage() {
+  const { hasVoted } = useVote();
+
   return (
     <>
       <Header />
@@ -14,7 +18,7 @@ export default function VotePage() {
               conta.
             </p>
           </div>
-          <VotingForm />
+          {!hasVoted ? <VoteForm /> : <VoteResults />}
         </div>
       </div>
     </>

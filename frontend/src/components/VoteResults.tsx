@@ -8,7 +8,7 @@ import toast from "react-hot-toast";
 import ParticipantCard from "./ParticipantCard";
 
 export default function VoteResults() {
-  const { setHasVoted } = useVote();
+  const { hasVoted, setHasVoted } = useVote();
   const navigate = useNavigate();
   const { participants, loading } = useParticipants();
   const [results, setResults] = useState<Record<string, number>>({});
@@ -25,6 +25,7 @@ export default function VoteResults() {
 
   const handleVoteAgain = () => {
     setHasVoted(false);
+    console.log(hasVoted)
     navigate("/voting-page");
   };
 

@@ -2,13 +2,12 @@ import { useParticipants } from "../contexts/ParticipantContext";
 import { useVote } from "../contexts/VoteContext";
 import toast from "react-hot-toast";
 import Button from "./Button";
-import VoteResults from "./VoteResults";
 import { postVote } from "../services/api";
 import ParticipantCard from "./ParticipantCard";
 
-export default function VotingForm() {
+export default function VoteForm() {
   const { participants, loading } = useParticipants();
-  const { hasVoted, setHasVoted } = useVote();
+  const { setHasVoted } = useVote();
 
   const castVote = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -36,29 +35,23 @@ export default function VotingForm() {
   const nominated = participants.filter((p) => p.isNominated);
 
   return (
-    <>
-      {!hasVoted ? (
-        <form className="flex flex-col items-center" onSubmit={castVote}>
-          {nominated.map((p) => (
-            <label key={p.id} className="w-[100%]">
-              <input
-                type="radio"
-                name="participant"
-                value={p.id}
-                className="hidden peer"
-              />
-              <ParticipantCard
-                name={p.name}
-                imageUrl={p.imageUrl}
-                className="ease-in-out cursor-pointer hover:bg-highlight hover:text-midnight peer-checked:bg-highlight peer-checked:text-dusk"
-              />
-            </label>
-          ))}
-          <Button text="Votar" type="submit" />
-        </form>
-      ) : (
-        <VoteResults />
-      )}
-    </>
+    <form className="flex flex-col items-center" onSubmit={castVote}>
+      {nominated.map((p) => (
+        <label key={p.id} className="w-[100%]">
+          <input
+            type="radio"
+            name="participant"
+            value={p.id}
+            className="hidden peer"
+          />
+          <ParticipantCard
+            name={p.name}
+            imageUrl={p.imageUrl}
+            className="ease-in-out cursor-pointer hover:bg-highlight hover:text-midnight peer-checked:bg-highlight peer-checked:text-dusk"
+          />
+        </label>
+      ))}
+      <Button text="Votar" type="submit" />
+    </form>
   );
 }
