@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import Participant from "../models/Participant";
-
-const PARTICIPANTS_STORAGE = "participants-cache";
+import { getParticipants } from "../services/api";
+import toast from "react-hot-toast";
 
 interface ParticipantContextType {
   participants: Participant[];
@@ -24,23 +24,14 @@ export default function ParticipantProvider({
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const cache = localStorage.getItem(PARTICIPANTS_STORAGE);
-
-    if (cache) {
-      const parsed = JSON.parse(cache);
-      setParticipants(parsed.map((p: any) => new Participant(p)));
-      setLoading(false);
-      return;
-    }
-
-    fetch(`${import.meta.env.VITE_BACKEND_URL}/api/participants`)
-      .then((res) => {
-        if (!res.ok) throw new Error("Failed to fetch participants");
-        return res.json();
-      })
+    getParticipants()
       .then((data) => {
-        localStorage.setItem(PARTICIPANTS_STORAGE, JSON.stringify(data));
         setParticipants(data.map((p: any) => new Participant(p)));
+      })
+      .catch(() => {
+        toast.error("Erro ao buscar participantes");
+      })
+      .finally(() => {
         setLoading(false);
       });
   }, []);

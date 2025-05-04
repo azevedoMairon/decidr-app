@@ -15,7 +15,7 @@ export default function Bracket() {
             width="40"
             height="20"
             stroke="rgb(220, 255, 30)"
-            stroke-width="4"
+            strokeWidth="4"
           />
           <rect
             x="10"
@@ -23,7 +23,7 @@ export default function Bracket() {
             width="40"
             height="20"
             stroke="rgb(220, 255, 30)"
-            stroke-width="4"
+            strokeWidth="4"
           />
           <rect
             x="10"
@@ -31,7 +31,7 @@ export default function Bracket() {
             width="40"
             height="20"
             stroke="rgb(220, 255, 30)"
-            stroke-width="4"
+            strokeWidth="4"
           />
           <rect
             x="10"
@@ -39,7 +39,7 @@ export default function Bracket() {
             width="40"
             height="20"
             stroke="rgb(220, 255, 30)"
-            stroke-width="4"
+            strokeWidth="4"
           />
 
           <rect
@@ -48,7 +48,7 @@ export default function Bracket() {
             width="40"
             height="20"
             stroke="rgb(220, 255, 30)"
-            stroke-width="4"
+            strokeWidth="4"
           />
           <rect
             x="80"
@@ -56,7 +56,7 @@ export default function Bracket() {
             width="40"
             height="20"
             stroke="rgb(220, 255, 30)"
-            stroke-width="4"
+            strokeWidth="4"
           />
 
           <rect
@@ -65,38 +65,38 @@ export default function Bracket() {
             width="40"
             height="20"
             stroke="rgb(220, 255, 30)"
-            stroke-width="4"
+            strokeWidth="4"
           />
 
           <path
             d="M50 20 H65 V45 H80"
             stroke="rgb(220, 255, 30)"
-            stroke-width="4"
+            strokeWidth="4"
           />
           <path
             d="M50 70 H65 V45 H80"
             stroke="rgb(220, 255, 30)"
-            stroke-width="4"
+            strokeWidth="4"
           />
           <path
             d="M50 120 H65 V145 H80"
             stroke="rgb(220, 255, 30)"
-            stroke-width="4"
+            strokeWidth="4"
           />
           <path
             d="M50 170 H65 V145 H80"
             stroke="rgb(220, 255, 30)"
-            stroke-width="4"
+            strokeWidth="4"
           />
           <path
             d="M120 45 H135 V95 H150"
             stroke="rgb(220, 255, 30)"
-            stroke-width="4"
+            strokeWidth="4"
           />
           <path
             d="M120 145 H135 V95 H150"
             stroke="rgb(220, 255, 30)"
-            stroke-width="4"
+            strokeWidth="4"
           />
         </svg>
       </div>

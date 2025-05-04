@@ -14,7 +14,7 @@ export default function Button({ text, onClick, type = "button" }: Props) {
     >
       <button
         onClick={onClick}
-        className="mt-6 px-4 py-2 border-2 border-highlight light font-bold hover:bg-highlight hover:text-midnight"
+        className="mt-6 px-4 py-2 border-2 border-highlight font-bold hover:bg-highlight hover:text-midnight focus:outline-none"
         type={type}
       >
         {text}

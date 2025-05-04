@@ -13,7 +13,7 @@ export default function Header() {
       <span className="w-[100%] bg-highlight h-[1px]"></span>
       <div className="flex mt-6 justify-center">
         {participants.map((p) => (
-          <ParticipantBubble participant={p} />
+          <ParticipantBubble key={p.id} participant={p} />
         ))}
       </div>
     </header>
