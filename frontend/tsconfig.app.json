@@ -22,5 +22,5 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["src", "assets/Bracket.tsx"]
+  "include": ["src", "src/assets/Bracket.tsx"]
 }

@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
-import AppLogo from "./components/ui/AppLogo";
-import Button from "./components/ui/Button";
+import AppLogo from "../components/ui/AppLogo";
+import Button from "../components/ui/Button";
 
-export default function App() {
+export default function Index() {
   const navigate = useNavigate();
 
   return (

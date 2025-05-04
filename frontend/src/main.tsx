@@ -1,12 +1,12 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
-import App from "./App.tsx";
+import Index from "./pages/Index.tsx";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import VotingPage from "./pages/VotingPage.tsx";
 import { AnimatePresence } from "framer-motion";
 import { Toaster } from "react-hot-toast";
-import Bracket from "../assets/Bracket.tsx";
+import Bracket from "./assets/Bracket.tsx";
 import ParticipantProvider from "./contexts/ParticipantContext.tsx";
 import VoteProvider from "./contexts/VoteContext.tsx";
 
@@ -18,7 +18,7 @@ createRoot(document.getElementById("root")!).render(
         <BrowserRouter>
           <AnimatePresence>
             <Routes>
-              <Route path="/" element={<App />} />
+              <Route path="/" element={<Index />} />
               <Route path="/voting-page" element={<VotingPage />} />
             </Routes>
             <Bracket />
