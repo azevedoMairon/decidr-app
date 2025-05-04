@@ -1,4 +1,4 @@
-import Participant from "../models/Participant";
+import Participant from "../../models/Participant";
 
 interface Props {
   participant: Participant;

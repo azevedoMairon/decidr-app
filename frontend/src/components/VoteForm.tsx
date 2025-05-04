@@ -1,9 +1,9 @@
 import { useParticipants } from "../contexts/ParticipantContext";
 import { useVote } from "../contexts/VoteContext";
 import toast from "react-hot-toast";
-import Button from "./Button";
+import Button from "./ui/Button";
 import { postVote } from "../services/api";
-import ParticipantCard from "./ParticipantCard";
+import ParticipantCard from "./participant/ParticipantCard";
 
 export default function VoteForm() {
   const { participants, loading } = useParticipants();

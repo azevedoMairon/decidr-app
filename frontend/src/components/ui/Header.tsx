@@ -1,6 +1,6 @@
-import { useParticipants } from "../contexts/ParticipantContext";
+import { useParticipants } from "../../contexts/ParticipantContext";
 import AppLogo from "./AppLogo";
-import ParticipantBubble from "./ParticipantBubble";
+import ParticipantBubble from "../participant/ParticipantBubble";
 
 export default function Header() {
   const { participants, loading } = useParticipants();

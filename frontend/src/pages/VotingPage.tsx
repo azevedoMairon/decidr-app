@@ -1,4 +1,4 @@
-import Header from "../components/Header";
+import Header from "../components/ui/Header";
 import VoteResults from "../components/VoteResults";
 import VoteForm from "../components/VoteForm";
 import { useVote } from "../contexts/VoteContext";

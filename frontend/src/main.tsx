@@ -6,7 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import VotingPage from "./pages/VotingPage.tsx";
 import { AnimatePresence } from "framer-motion";
 import { Toaster } from "react-hot-toast";
-import Bracket from "./components/Bracket.tsx";
+import Bracket from "../assets/Bracket.tsx";
 import ParticipantProvider from "./contexts/ParticipantContext.tsx";
 import VoteProvider from "./contexts/VoteContext.tsx";
 

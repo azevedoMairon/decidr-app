@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import { useParticipants } from "../contexts/ParticipantContext";
 import { useVote } from "../contexts/VoteContext";
 import { useNavigate } from "react-router-dom";
-import Button from "./Button";
+import Button from "./ui/Button";
 import { getResults } from "../services/api";
 import toast from "react-hot-toast";
-import ParticipantCard from "./ParticipantCard";
+import ParticipantCard from "./participant/ParticipantCard";
 
 export default function VoteResults() {
   const { hasVoted, setHasVoted } = useVote();
