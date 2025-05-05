@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParticipants } from "../contexts/ParticipantContext";
 import { useVote } from "../contexts/VoteContext";
 import { useNavigate } from "react-router-dom";
-import Button from "./ui/Button";
+import CustomButton from "./ui/CustomButton";
 import { getResults } from "../services/api";
 import toast from "react-hot-toast";
 import ParticipantCard from "./participant/ParticipantCard";
@@ -47,7 +47,7 @@ export default function VoteResults() {
             />
           );
         })}
-        <Button text="Votar Novamente" onClick={handleVoteAgain} />
+        <CustomButton text="Votar Novamente" onClick={handleVoteAgain} />
       </div>
     </>
   );

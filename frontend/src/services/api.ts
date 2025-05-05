@@ -37,7 +37,7 @@ export async function postVote(
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(selectedParticipantId),
+    body: JSON.stringify({ participant_id: selectedParticipantId }),
   });
 
   if (!response.ok) {

@@ -9,9 +9,9 @@ export default function VotePage() {
   return (
     <>
       <Header />
-      <div className="flex justify-center items-center h-[75%]">
-        <div className="grid grid-cols-2 gap-32 w-[70%]">
-          <div className="flex justify-center translate-y-1/6">
+      <main className="z-0 absolute top-0 left-0 w-full h-full flex justify-center items-center">
+        <div className="grid grid-cols-2 gap-32 w-[70%] pt-[260px]">
+          <div className="flex justify-center">
             <p className="font-mono text-3xl text-justify text-light p-8">
               É você quem manda no jogo. Vote agora no participante que deve
               deixar o programa — o paredão está pegando fogo e cada clique
@@ -20,7 +20,7 @@ export default function VotePage() {
           </div>
           {!hasVoted ? <VoteForm /> : <VoteResults />}
         </div>
-      </div>
+      </main>
     </>
   );
 }

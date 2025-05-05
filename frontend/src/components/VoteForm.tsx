@@ -1,7 +1,7 @@
 import { useParticipants } from "../contexts/ParticipantContext";
 import { useVote } from "../contexts/VoteContext";
 import toast from "react-hot-toast";
-import Button from "./ui/Button";
+import CustomButton from "./ui/CustomButton";
 import { postVote } from "../services/api";
 import ParticipantCard from "./participant/ParticipantCard";
 
@@ -51,7 +51,7 @@ export default function VoteForm() {
           />
         </label>
       ))}
-      <Button text="Votar" type="submit" />
+      <CustomButton text="Votar" type="submit" />
     </form>
   );
 }

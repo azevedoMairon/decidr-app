@@ -9,6 +9,7 @@ import { Toaster } from "react-hot-toast";
 import Bracket from "./assets/Bracket.tsx";
 import ParticipantProvider from "./contexts/ParticipantContext.tsx";
 import VoteProvider from "./contexts/VoteContext.tsx";
+import VoteStats from "./pages/VoteStats.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -20,6 +21,7 @@ createRoot(document.getElementById("root")!).render(
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/voting-page" element={<VotingPage />} />
+              <Route path="/stats" element={<VoteStats />} />
             </Routes>
             <Bracket />
           </AnimatePresence>

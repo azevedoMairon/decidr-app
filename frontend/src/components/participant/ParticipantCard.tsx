@@ -1,15 +1,17 @@
 interface ParticipantCardProps {
   name: string;
   imageUrl: string;
-  percent?: number;
   className?: string;
+  percent?: number;
+  votes?: number;
 }
 
 export default function ParticipantCard({
   name,
   imageUrl,
-  percent,
   className,
+  percent,
+  votes,
 }: ParticipantCardProps) {
   return (
     <div
@@ -25,7 +27,8 @@ export default function ParticipantCard({
       />
       <span className="font-mono text-xl">
         {name}
-        {percent ? <>- {percent}%</> : <></>}
+        {percent ? <> - {percent}%</> : <></>}
+        {votes ? <> - {votes} Votos</> : <></>}
       </span>
     </div>
   );
