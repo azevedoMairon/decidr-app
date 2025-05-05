@@ -8,7 +8,9 @@ Aplicativo de sistema de votação com alta volumetria esperada. O objetivo aqui
 
 O pré requisito mínimo para _execução_ dessa aplicação é o `Docker` que pode ser instalado [aqui](https://docs.docker.com/)
 
-Ja para desenvolvimento é necessária realizar a instalação da linguagem de programação `Go` e do gerenciador de pacotes `Node.js`
+Execute `docker compose up -d` no seu terminal, o front-end estara exposto em `http://localhost:5173` e o backend em `http://localhost:8080`
+
+Ja para desenvolvimento é necessário realizar a instalação da linguagem de programação `Go` e do gerenciador de pacotes `Node.js 22`
 
 ## Implementações e tecnologias
 
