@@ -1,13 +1,36 @@
-version: "3.8"
-
 services:
+  api:
+    build:
+      context: ./backend
+      dockerfile: ./Dockerfile
+    environment:
+      - MONGO_URL=mongodb://mongo:27017
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./logs:/logs
+    depends_on:
+      mongo:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: ./Dockerfile
+      args:
+        - VITE_BACKEND_URL=http://localhost:8080
+    ports:
+      - "5173:80"
+    depends_on:
+      - api
+
   mongo:
     image: mongo:latest
     container_name: mongo-dedidr
     ports:
       - "27017:27017"
     volumes:
-      - ./data:/data/db
+      - ./backend/data:/data/db
     healthcheck:
       test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
       interval: 10s
@@ -23,14 +46,14 @@ services:
   otelcol:
     image: otel/opentelemetry-collector-contrib:latest
     volumes:
-      - ./logs:/app/logs
+      - ./backend/logs:/app/logs
       - ./config-files/otel-config.yaml:/etc/otelcol/otel-config.yaml
     command: ["--config=/etc/otelcol/otel-config.yaml"]
 
   prometheus:
     image: prom/prometheus:latest
     volumes:
-      - ./config-files/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./backend/config-files/prometheus.yml:/etc/prometheus/prometheus.yml
     ports:
       - "9090:9090"
 

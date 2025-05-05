@@ -17,8 +17,6 @@ COPY --from=build /decidr-app-api /decidr-app-alpine
 
 EXPOSE 8080
 
-USER daemon:daemon
-
 ARG MONGO_URL
 ENV MONGO_URL=$MONGO_URL
 
