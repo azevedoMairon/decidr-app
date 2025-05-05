@@ -2,6 +2,7 @@ package repositories
 
 import (
 	"context"
+	"log/slog"
 	"time"
 
 	"github.com/azevedoMairon/decidr-app/internal/entities"
@@ -30,13 +31,13 @@ func (r *voteRepository) IncrementVote(ctx context.Context, req entities.VoteReq
 		"participantId": req.ParticipantId,
 		"hour":          time.Now().Truncate(time.Hour),
 	}
-
 	update := bson.M{
 		"$inc": bson.M{"count": 1},
 	}
 
 	result, err := r.collection.UpdateOne(ctx, filter, update, options.Update().SetUpsert(true))
 	if err != nil {
+		slog.Error("[VoteRepository.IncrementVote] Failed to increment vote", "participant_id", req.ParticipantId, "error", err.Error())
 		return nil, err
 	}
 
@@ -45,21 +46,28 @@ func (r *voteRepository) IncrementVote(ctx context.Context, req entities.VoteReq
 
 func (r *voteRepository) FindAll(ctx context.Context, byHour *bool) ([]entities.VoteResult, error) {
 	var pipeline mongo.Pipeline
+	var mode string
 
 	if byHour == nil || !*byHour {
 		pipeline = getStandardAggregation()
+		mode = "standard"
 	} else {
 		pipeline = getByHourAggregation()
+		mode = "byHour"
 	}
+
+	slog.Info("[VoteRepository.FindAll] Running aggregation", "mode", mode)
 
 	cursor, err := r.collection.Aggregate(ctx, pipeline)
 	if err != nil {
+		slog.Error("[VoteRepository.FindAll] Aggregation error", "error", err.Error())
 		return nil, err
 	}
 	defer cursor.Close(ctx)
 
 	var result []entities.VoteResult
 	if err := cursor.All(ctx, &result); err != nil {
+		slog.Error("[VoteRepository.FindAll] Failed to decode aggregation results", "error", err.Error())
 		return nil, err
 	}
 
