@@ -6,9 +6,9 @@ import (
 
 	"log/slog"
 
-	"github.com/azevedoMairon/decidr-app/infra/mongo"
-	"github.com/azevedoMairon/decidr-app/infra/mongo/migrations"
 	"github.com/azevedoMairon/decidr-app/internal/http"
+	"github.com/azevedoMairon/decidr-app/internal/infra/mongo"
+	"github.com/azevedoMairon/decidr-app/internal/infra/mongo/migrations"
 	"github.com/azevedoMairon/decidr-app/pkg/logger"
 )
 
