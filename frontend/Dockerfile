@@ -17,13 +17,6 @@ RUN rm -rf /usr/share/nginx/html/*
 
 COPY --from=build /app/dist /usr/share/nginx/html
 
-COPY nginx.conf.template /etc/nginx/templates/nginx.conf.template
-COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
-
-ARG VITE_BACKEND_URL
-ENV BACKEND_URL=$VITE_BACKEND_URL
-
 EXPOSE 80
 
-CMD ["/entrypoint.sh"]
+CMD ["nginx", "-g", "daemon off;"]
