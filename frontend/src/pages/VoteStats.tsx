@@ -60,10 +60,10 @@ export default function VoteStats() {
       <Header />
       <main className="absolute inset-0 flex justify-center items-start overflow-hidden">
         <div className="flex flex-col items-center justify-center w-[100%] h-[100%]">
-          <div className="text-2xl">
-            <strong>Total Geral de Votos:</strong> {totalVotes}
-          </div>
           <div className="p-6 space-y-8 text-white w-[70%] max-h-[60%] overflow-y-auto mt-28 flex flex-col items-center">
+            <div className="text-2xl">
+              <strong>Total Geral de Votos:</strong> {totalVotes}
+            </div>
             <h2 className="text-2xl font-semibold">Votos por Participante</h2>
             <div className="space-y-2 w-[55%]">
               {participants.map((p) => (
