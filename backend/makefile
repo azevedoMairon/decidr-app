@@ -1,7 +1,7 @@
 .PHONY: setup compile-run run test
 
 setup:
-	docker-compose up -d
+	docker-compose up -d mongo loki otelcol prometheus grafana
 
 compile-run: setup
 	go build ./cmd/api/main.go && ./main

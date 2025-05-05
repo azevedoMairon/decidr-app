@@ -8,7 +8,7 @@ import (
 
 func Init() {
 	_ = os.MkdirAll("./logs", os.ModePerm)
-	logFile, err := os.OpenFile("/logs/app.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
+	logFile, err := os.OpenFile("./logs/app.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
 	if err != nil {
 		panic("Erro ao abrir arquivo de log: " + err.Error())
 	}
