@@ -33,6 +33,7 @@ func NewVoteService(
 }
 
 func (s *voteService) PostVote(ctx context.Context, req entities.VoteRequest) (*mongo.UpdateResult, error) {
+	slog.Info("[VoteService.PostVote] Checking participant ID integrity", "request", req)
 	participantId, err := primitive.ObjectIDFromHex(req.ParticipantId)
 	if err != nil {
 		slog.Warn("[VoteService.PostVote] Failed to convert participant ID", "participant_id", req.ParticipantId, "error", err.Error())
