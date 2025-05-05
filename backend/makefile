@@ -1,7 +1,7 @@
 .PHONY: setup compile-run run test
 
 setup:
-	docker-compose up -d mongo
+	docker-compose up -d
 
 compile-run: setup
 	go build ./cmd/api/main.go && ./main
