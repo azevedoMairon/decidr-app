@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"log"
+	"os"
 
 	"github.com/azevedoMairon/decidr-app/infra/mongo"
 	"github.com/azevedoMairon/decidr-app/infra/mongo/migrations"
@@ -15,7 +16,12 @@ import (
 )
 
 func main() {
-	mongoClient, err := mongo.Connect("mongodb://localhost:27017")
+	mongoURI := os.Getenv("MONGO_URL")
+	if mongoURI == "" {
+		log.Fatal("MONGO_URL not defined")
+	}
+
+	mongoClient, err := mongo.Connect(mongoURI)
 	if err != nil {
 		log.Fatal(err)
 	}

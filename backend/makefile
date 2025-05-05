@@ -7,7 +7,7 @@ compile-run: setup
 	go build ./cmd/api/main.go && ./main
 
 run: setup
-	go run ./cmd/api/main.go
+	@export $$(cat .env | xargs) && go run ./cmd/api/main.go
 
 test:
 	go test ./test/... -v
