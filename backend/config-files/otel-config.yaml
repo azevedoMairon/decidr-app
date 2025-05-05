@@ -1,0 +1,14 @@
+receivers:
+  filelog:
+    include: [/app/logs/*.log]
+    start_at: beginning
+
+exporters:
+  loki:
+    endpoint: http://loki:3100/loki/api/v1/push
+
+service:
+  pipelines:
+    logs:
+      receivers: [filelog]
+      exporters: [loki]

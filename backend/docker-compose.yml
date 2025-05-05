@@ -20,18 +20,17 @@ services:
       - "3100:3100"
     command: -config.file=/etc/loki/local-config.yaml
 
-  promtail:
-    image: grafana/promtail:2.9.0
+  otelcol:
+    image: otel/opentelemetry-collector-contrib:latest
     volumes:
-      - /var/log:/var/log
       - ./logs:/app/logs
-      - ./promtail-config.yml:/etc/promtail/promtail.yml
-    command: -config.file=/etc/promtail/promtail.yml
+      - ./config-files/otel-config.yaml:/etc/otelcol/otel-config.yaml
+    command: ["--config=/etc/otelcol/otel-config.yaml"]
 
   prometheus:
     image: prom/prometheus:latest
     volumes:
-      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./config-files/prometheus.yml:/etc/prometheus/prometheus.yml
     ports:
       - "9090:9090"
 

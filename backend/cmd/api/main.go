@@ -2,61 +2,38 @@ package main
 
 import (
 	"context"
-	"log"
 	"os"
+
+	"log/slog"
 
 	"github.com/azevedoMairon/decidr-app/infra/mongo"
 	"github.com/azevedoMairon/decidr-app/infra/mongo/migrations"
-	"github.com/azevedoMairon/decidr-app/internal/handlers"
-	"github.com/azevedoMairon/decidr-app/internal/repositories"
-	"github.com/azevedoMairon/decidr-app/internal/services"
-	"github.com/gin-contrib/cors"
-
-	"github.com/gin-gonic/gin"
+	"github.com/azevedoMairon/decidr-app/internal/http"
+	"github.com/azevedoMairon/decidr-app/pkg/logger"
 )
 
 func main() {
+	logger.Init()
+
 	mongoURI := os.Getenv("MONGO_URL")
 	if mongoURI == "" {
-		log.Fatal("MONGO_URL not defined")
+		slog.Error("MONGO_URL not defined")
+		return
 	}
 
-	mongoClient, err := mongo.Connect(mongoURI)
+	client, err := mongo.Connect(mongoURI)
 	if err != nil {
-		log.Fatal(err)
+		slog.Error("Erro ao conectar no MongoDB", "err", err)
+		return
 	}
-
-	db := mongoClient.Database("decidr_db")
+	db := client.Database("decidr_db")
 
 	if err := migrations.SeedParticipants(context.Background(), db); err != nil {
-		log.Fatal(err)
+		slog.Error("Erro ao rodar seed", "err", err)
+		return
 	}
 
-	participantRepo := repositories.NewParticipantRepository(db)
-	participantService := services.NewParticipantService(participantRepo)
-	participantHandler := handlers.NewParticipantHandler(participantService)
-
-	voteRepo := repositories.NewVoteRepository(db)
-	voteService := services.NewVoteService(voteRepo, participantRepo)
-	voteHandler := handlers.NewVoteHandler(voteService)
-
-	router := gin.Default()
-
-	router.GET("/", func(c *gin.Context) {
-		c.String(200, "OK!")
-	})
-
-	router.Use(cors.New(cors.Config{
-		AllowOrigins: []string{"http://localhost:5173"},
-		AllowMethods: []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
-		AllowHeaders: []string{"Origin", "Content-Type", "Accept", "Authorization"},
-	}))
-
-	router.GET("/api/participants", participantHandler.GetParticipants)
-
-	router.POST("/api/vote", voteHandler.PostVote)
-
-	router.GET("/api/results", voteHandler.GetResults)
-
+	router := http.NewRouter(db)
+	slog.Info("Servidor iniciado", "port", 8080)
 	router.Run(":8080")
 }
